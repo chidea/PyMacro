@@ -1,9 +1,9 @@
-PyMacro.net
+PyMacro
 ===========
 
-.net based Windows macro software with Python scripts
+Windows macro software with Python scripts
 
-1. build .net framework based windows macro program
-2. provide macro scripting with the Python
-......
-PROFIT!
+
+### Prerequisition
+`pip install pypiwin32`
+
