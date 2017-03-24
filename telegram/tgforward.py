@@ -14,7 +14,9 @@ if __name__ == '__main__':
   dbcon = connect('test.db')
   dbcur = dbcon.cursor()
   while True:
-    room_name = input('name of room where the message is (ctrl+c to exit) >')
+    room_name = input('name of room where the message is (enter q to exit) >')
+    if room_name == 'q':
+      exit()
     dbcur.execute('select peerid from location where name like "%' + room_name +'%" limit 1')
     pid, = dbcur.fetchone()
     print('debug)peerid is', pid)

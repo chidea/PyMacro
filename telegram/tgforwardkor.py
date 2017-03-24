@@ -14,7 +14,9 @@ if __name__ == '__main__':
   dbcon = connect('test.db')
   dbcur = dbcon.cursor()
   while True:
-    room_name = input('공지할 메시지를 가져올 방 이름(ex:공지, 살림꾼, 서울특별시) (컨트롤+c를 누르면 종료합니다) >')
+    room_name = input('공지할 메시지를 가져올 방 이름(ex:공지, 살림꾼, 서울특별시) (q를 입력하면 종료합니다) >')
+    if room_name == 'q':
+      exit()
     dbcur.execute('select peerid from location where name like "%' + room_name +'%" limit 1')
     pid, = dbcur.fetchone()
     print('debug)peerid is', pid)
