@@ -5,22 +5,9 @@ from selenium.webdriver.common.by import By
 from time import sleep
 
 if __name__ == '__main__':
-  drv = webdriver.Edge()
-  drv.get('https://web.telegram.org/#/im?p=@civiceyeall')
-  input('enter after loading webogram is done')
-  drv.execute_script("""var s = angular.element(document.querySelector('.ng-scope'));
-    cm = s.injector().get('AppChatsManager');
-    peer = s.injector().get('AppPeersManager');
-    prof = s.injector().get('AppProfileManager');
-    loc = s.injector().get('LocationParamsService');
-    um = s.injector().get('AppUsersManager');
-    mm = s.injector().get('AppMessagesManager');
-    up = s.injector().get('ApiUpdatesManager');
-    mmid = s.injector().get('AppMessagesIDsManager');
-    me = um.getSelf();
-    peerID = -1038552215;
-    lastInID = 0;
-    lastMid = 0;
+  from tg import webogram
+  drv = webogram()
+  drv.execute_script("""
     msg = "님 반갑습니다~ 위 글에 있는 링크 통하셔서 사시는 지역 권역방, 지역방으로도 입장해주세요~ 투개표감시때 지역분들과 업무분장 및 소통 위한 방이므로 꼭 입장해주시길 부탁드립니다~";
     longmsg = `전체소통방에 함께하여 주셔서 고맙습니다^^
 
@@ -82,6 +69,12 @@ https://t.me/civiceyes/403
             ㅡ살림꾼 일동ㅡ`;
     tmid = 17179911828;
     lastUpTime = 0;
+    
+    window.welcome = root.$on('apiUpdate', function(e, d){
+      if(d._ === 'updateNewChannelMessage' && d.message.peerID === -1070659318 && d.message.flags===256 && d.message.action && d.message.action._.startsWith('messageActionChatJoined')){
+        console.log(d);
+      }
+    });
 
     replyTimer=setInterval(function(){
       var mid = mm.getHistory(peerID, 0, 1).$$state.value.history[0];
@@ -121,6 +114,7 @@ https://t.me/civiceyes/403
         }
       }
     }, 2000);
+
     """)
   #
   #  //mtp = s.injector().get('MtpApiManager');

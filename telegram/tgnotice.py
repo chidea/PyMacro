@@ -67,7 +67,7 @@ if __name__ == '__main__':
   drv = webdriver.Edge()
   drv.get('https://web.telegram.org/#/im?p=@civiceyeall')
   input('enter after loading webogram is done')
-  drv.execute_script("""var s = angular.element(document.querySelector('.ng-scope'));
+  drv.execute_script("""var s = angular.element(document.querySelector('body'));
     cm = s.injector().get('AppChatsManager');
     peer = s.injector().get('AppPeersManager');
     prof = s.injector().get('AppProfileManager');
