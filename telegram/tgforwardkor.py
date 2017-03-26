@@ -7,10 +7,10 @@ from selenium import webdriver
 #from windows import *
 from time import sleep
 #from tg import *
-from sqlite3 import connect
 if __name__ == '__main__':
   from tg import webogram, waitrst
   drv = webogram()
+  from sqlite3 import connect
   dbcon = connect('test.db')
   dbcur = dbcon.cursor()
   while True:
@@ -54,6 +54,7 @@ if __name__ == '__main__':
         print('보낼 메시지 목록에 추가되어 현재 %d 개의 메시지가 선택되었습니다.' % len(mids))
         continue
       else:
+        mids.append(mid)
         print('%d 개를 보냅니다.' % len(mids))
         if room_name == '*':
           room_name = ' where lid > 0 and lid < 1000 and lid != 20'
