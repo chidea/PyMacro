@@ -18,11 +18,24 @@ def openlinkfile(dirname='', fname='tglink.txt'):
     l = eval( '{' + '\n'.join(l) + '\n}' )
   return l
 
-def webogram():
+def webogram(browser='edge'):
   from selenium import webdriver
-  drv = webdriver.Edge()
+  if browser == 'edge':
+    drv = webdriver.Edge()
+  elif browser == 'ie':
+    drv = webdriver.Ie()
+  elif browser == 'chrome':
+    drv = webdriver.Chrome()
+
   drv.get('https://web.telegram.org/')
   input('enter after loading webogram is done')
+  if browser == 'ie':
+    from selenium.common.exceptions import NoSuchWindowException
+    try:
+      drv.execute_script('return 1')
+    except :
+      print('you need to enable protected mode for local intranet. Go options>Security>Local intranet.')
+      exit()
   drv.execute_script("""
     var s = angular.element(document.querySelector('body'));
     root = s.injector().get('$rootScope');
@@ -42,11 +55,12 @@ def webogram():
     mtpf = s.injector().get('MtpApiFileManager');
     fm = s.injector().get('FileManager');
     
-    (function loadMoreConv(lastDI=0){
-      return mm.getConversations('', lastDI, 100).then(o =>
+    (function loadMoreConv(lastDI){
+      return mm.getConversations('', lastDI, 100).then(function(o){
         o.dialogs.length===100 ?
-          loadMoreConv(o.dialogs[99].index) : (window.o=true));
-    })();
+          loadMoreConv(o.dialogs[99].index) : (window.o=true);
+      });
+    })(0);
     """)
   rst = waitrst(drv)
   drv.execute_script('delete window.o')
