@@ -62,7 +62,7 @@ if __name__ == '__main__':
         mids.append(mid)
         print('%d 개를 보냅니다.' % len(mids))
         if room_name == '*':
-          room_name = ' where lid > 0 and lid < 1000 and lid != 20'
+          room_name = ' where (lid > 0 and lid < 20) or (lid > 99 and lid < 1000)'
         else:
           room_name = ' where name like "%' + room_name + '%"'
         break
